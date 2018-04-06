@@ -8,6 +8,7 @@ func main() {
 	fmt.Println(getIndex(searchNumber, listOfIntegers))
 }
 
+//Even if the listOfIntegers is nil we return -1 index
 func getIndex(num int, listOfInteger []int) int {
 	for index, intInList := range listOfInteger {
 		if intInList == num {
