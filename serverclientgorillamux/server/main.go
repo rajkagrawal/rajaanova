@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/sirupsen/logrus"
+
 	"github.com/gorilla/mux"
 )
 
@@ -31,6 +33,7 @@ func main() {
 	//	return con
 	//}))
 	route.HandleFunc("/raj", timeMiddleWare(loggingMiddleware(raj))).Methods("GET")
+	logrus.Debugf("hello %s", "raj")
 	//route.HandleFunc("/rajcontroller", controllers.rajcont).Methods("GET")
 	http.ListenAndServe(":8080", route)
 
@@ -43,7 +46,7 @@ func timeMiddleWare(fun http.HandlerFunc) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
 		////fmt.Println("time started")
 		////t := time.Now()
-		//fun(writer, request)
+		fun(writer, request)
 		////fmt.Println("time ended ", time.Since(t))
 	}
 }
@@ -81,7 +84,7 @@ func raj(w http.ResponseWriter, r *http.Request) {
 	//go longRunningCalculation(r.Context())
 
 	// give some time for longRunningCalculation to do some work
-
+	//time.Sleep(2 * time.Second)
 	fmt.Println("is this priting")
 	io.WriteString(w, "bazinga!")
 }
